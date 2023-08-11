@@ -1,0 +1,29 @@
++ export MASTER_PORT=12813
++ MASTER_PORT=12813
++ export NCCL_DEBUG=INFO
++ NCCL_DEBUG=INFO
++ export TORCH_DISTRIBUTED_DEBUG=DETAIL
++ TORCH_DISTRIBUTED_DEBUG=DETAIL
+++ scontrol show hostnames devbox2
+++ head -n 1
++ master_addr=devbox2
++ export MASTER_ADDR=devbox2
++ MASTER_ADDR=devbox2
++ export PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py --save-frequency 1 --zeroshot-frequency 1 --val-frequency 1 --batch-size=32 --workers=8 --precision amp --seed 0 --epochs 201 --data-dir /nfs/home/tahmasebzadehg/datasets --pretrained openai --lr 2e-03 --wd 0.001 --dataset-name instances --kg-init random --gt-label-name gt_label --CLASS-TOKEN-POSITION front --CSC True --model ViT-B-32 --N-CTX 16 --pre-fname 2023_08_07_instances_TEST
+Traceback (most recent call last):
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py", line 34, in <module>
+    from open_clip import create_model_and_transforms, trace_model
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/open_clip/__init__.py", line 8, in <module>
+    from .tokenizer import SimpleTokenizer, tokenize
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/open_clip/tokenizer.py", line 149, in <module>
+    _tokenizer = SimpleTokenizer()
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/open_clip/tokenizer.py", line 72, in __init__
+    merges = gzip.open(bpe_path).read().decode("utf-8").split('\n')
+  File "/nfs/home/tahmasebzadehg/miniconda3/envs/py310/lib/python3.10/gzip.py", line 58, in open
+    binary_file = GzipFile(filename, gz_mode, compresslevel)
+  File "/nfs/home/tahmasebzadehg/miniconda3/envs/py310/lib/python3.10/gzip.py", line 174, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/nfs/home/tahmasebzadehg/prompt_learning/src/open_clip/bpe_simple_vocab_16e6.txt.gz'
+srun: error: devbox2: task 0: Exited with exit code 1

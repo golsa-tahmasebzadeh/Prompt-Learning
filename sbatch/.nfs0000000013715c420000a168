@@ -1,0 +1,15 @@
++ export MASTER_PORT=12813
++ MASTER_PORT=12813
++ export NCCL_DEBUG=INFO
++ NCCL_DEBUG=INFO
++ export TORCH_DISTRIBUTED_DEBUG=DETAIL
++ TORCH_DISTRIBUTED_DEBUG=DETAIL
+++ scontrol show hostnames devbox2
+++ head -n 1
++ master_addr=devbox2
++ export MASTER_ADDR=devbox2
++ MASTER_ADDR=devbox2
++ export PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py --save-frequency 1 --zeroshot-frequency 1 --val-frequency 1 --batch-size=32 --workers=8 --precision amp --seed 0 --epochs 201 --data-dir /nfs/home/tahmasebzadehg/datasets --pretrained openai --lr 2e-03 --wd 0.001 --dataset-name instances --kg-init random --gt-label-name gt_label --CLASS-TOKEN-POSITION front --CSC True --model ViT-B-32 --N-CTX 16 --pre-fname 2023_08_07_instances_TEST
+Error. Experiment already exists. Use --name {} to specify a new experiment.

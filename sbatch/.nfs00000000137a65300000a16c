@@ -1,0 +1,35 @@
++ export MASTER_PORT=12813
++ MASTER_PORT=12813
++ export NCCL_DEBUG=INFO
++ NCCL_DEBUG=INFO
++ export TORCH_DISTRIBUTED_DEBUG=DETAIL
++ TORCH_DISTRIBUTED_DEBUG=DETAIL
+++ scontrol show hostnames devbox2
+++ head -n 1
++ master_addr=devbox2
++ export MASTER_ADDR=devbox2
++ MASTER_ADDR=devbox2
++ export PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py --save-frequency 1 --zeroshot-frequency 1 --val-frequency 1 --batch-size=32 --workers=8 --precision amp --seed 0 --epochs 201 --data-dir /nfs/home/tahmasebzadehg/prompt_learning/data --pretrained openai --lr 2e-03 --wd 0.001 --dataset-name test --kg-init random --gt-label-name gt_label --CLASS-TOKEN-POSITION front --CSC True --model ViT-B-32 --N-CTX 16 --data_set_number 1 --pre-fname 2023_08_11_TEST
+2023-08-11,10:48:02 | INFO | Running with a single process. Device cuda:0.
+2023-08-11,10:48:02 | INFO | Loading pretrained ViT-B-32 from OpenAI.
+Traceback (most recent call last):
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py", line 369, in <module>
+    device = main(args, _shot, args.data_set_number, device)
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py", line 167, in main
+    classnames = pd.read_csv(args.class_names_path)[args.gt_label_name]
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 678, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 575, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 932, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1216, in _make_engine
+    self.handles = get_handle(  # type: ignore[call-overload]
+  File "/nfs/home/tahmasebzadehg/.local/lib/python3.10/site-packages/pandas/io/common.py", line 786, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/nfs/home/tahmasebzadehg/prompt_learning/data/test/class_names.csv'
+srun: error: devbox2: task 0: Exited with exit code 1

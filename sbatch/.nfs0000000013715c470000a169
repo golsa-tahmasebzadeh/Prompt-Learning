@@ -1,0 +1,477 @@
++ export MASTER_PORT=12813
++ MASTER_PORT=12813
++ export NCCL_DEBUG=INFO
++ NCCL_DEBUG=INFO
++ export TORCH_DISTRIBUTED_DEBUG=DETAIL
++ TORCH_DISTRIBUTED_DEBUG=DETAIL
+++ scontrol show hostnames devbox2
+++ head -n 1
++ master_addr=devbox2
++ export MASTER_ADDR=devbox2
++ MASTER_ADDR=devbox2
++ export PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ PYTHONPATH=:/nfs/home/tahmasebzadehg/prompt_learning/sbatch/src
++ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py --save-frequency 1 --zeroshot-frequency 1 --val-frequency 1 --batch-size=32 --workers=8 --precision amp --seed 0 --epochs 201 --data-dir /nfs/home/tahmasebzadehg/datasets --pretrained openai --lr 2e-03 --wd 0.001 --dataset-name instances --kg-init random --gt-label-name gt_label --CLASS-TOKEN-POSITION front --CSC True --model ViT-B-32 --N-CTX 16 --pre-fname 2023_08_07_instances_TEST
+2023-08-11,10:14:49 | INFO | Running with a single process. Device cuda:0.
+2023-08-11,10:14:49 | INFO | Loading pretrained ViT-B-32 from OpenAI.
+Initializing class-specific contexts
+Initial context: "X X X X X X X X X X X X X X X X"
+Number of context words (tokens): 16
+2023-08-11,10:14:55 | INFO | Trainable Parameters backbone: 1507328
+2023-08-11,10:14:55 | INFO | Model:
+2023-08-11,10:14:55 | INFO | COOPCLIP(
+  (prompt_learner): PromptLearner()
+  (image_encoder): VisualTransformer(
+    (conv1): Conv2d(3, 768, kernel_size=(32, 32), stride=(32, 32), bias=False)
+    (ln_pre): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (transformer): Transformer(
+      (resblocks): ModuleList(
+        (0): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (1): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (2): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (3): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (4): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (5): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (6): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (7): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (8): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (9): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (10): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+        (11): ResidualAttentionBlock(
+          (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+          )
+        )
+      )
+    )
+    (ln_post): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  )
+  (text_encoder): TextEncoder(
+    (transformer): Transformer(
+      (resblocks): ModuleList(
+        (0): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (1): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (3): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (4): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (5): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (6): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (7): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (8): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (9): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (10): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (11): ResidualAttentionBlock(
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_attn): Identity()
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (ln): Identity()
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+      )
+    )
+    (ln_final): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  )
+)
+2023-08-11,10:14:55 | INFO | Params:
+2023-08-11,10:14:55 | INFO |   CLASS_TOKEN_POSITION: front
+2023-08-11,10:14:55 | INFO |   CSC: True
+2023-08-11,10:14:55 | INFO |   N_CTX: 16
+2023-08-11,10:14:55 | INFO |   batch_size: 32
+2023-08-11,10:14:55 | INFO |   beta1: 0.9
+2023-08-11,10:14:55 | INFO |   beta2: 0.98
+2023-08-11,10:14:55 | INFO |   checkpoint_path: ./logs/2023_08_07_instances_TEST-init-random-model-ViT-B-32-ctx-16-front-shot-30-round-1/checkpoints
+2023-08-11,10:14:55 | INFO |   class_names_path: /nfs/home/tahmasebzadehg/datasets/instances/class_names.csv
+2023-08-11,10:14:55 | INFO |   copy_codebase: False
+2023-08-11,10:14:55 | INFO |   csv_caption_key: title
+2023-08-11,10:14:55 | INFO |   csv_img_key: filepath
+2023-08-11,10:14:55 | INFO |   csv_separator: ,
+2023-08-11,10:14:55 | INFO |   ctx_init: 
+2023-08-11,10:14:55 | INFO |   data_dir: /nfs/home/tahmasebzadehg/datasets
+2023-08-11,10:14:55 | INFO |   dataset_name: instances
+2023-08-11,10:14:55 | INFO |   dataset_resampled: False
+2023-08-11,10:14:55 | INFO |   dataset_type: auto
+2023-08-11,10:14:55 | INFO |   ddp_static_graph: False
+2023-08-11,10:14:55 | INFO |   debug: False
+2023-08-11,10:14:55 | INFO |   device: cuda:0
+2023-08-11,10:14:55 | INFO |   dist_backend: nccl
+2023-08-11,10:14:55 | INFO |   dist_url: env://
+2023-08-11,10:14:55 | INFO |   distribute_device: True
+2023-08-11,10:14:55 | INFO |   distributed: False
+2023-08-11,10:14:55 | INFO |   epochs: 201
+2023-08-11,10:14:55 | INFO |   eps: 1e-06
+2023-08-11,10:14:55 | INFO |   force_quick_gelu: False
+2023-08-11,10:14:55 | INFO |   gat_head: 2
+2023-08-11,10:14:55 | INFO |   gather_with_grad: False
+2023-08-11,10:14:55 | INFO |   grad_checkpointing: False
+2023-08-11,10:14:55 | INFO |   graph_path: /nfs/home/tahmasebzadehg/datasets/vise/VisE-O_refined.graphml
+2023-08-11,10:14:55 | INFO |   gt_label_name: gt_label
+2023-08-11,10:14:55 | INFO |   horovod: False
+2023-08-11,10:14:55 | INFO |   image_mean: None
+2023-08-11,10:14:55 | INFO |   image_std: None
+2023-08-11,10:14:55 | INFO |   imagenet_v2: None
+2023-08-11,10:14:55 | INFO |   imagenet_val: None
+2023-08-11,10:14:55 | INFO |   kg_info_path: /nfs/home/tahmasebzadehg/datasets/instances/kg_info.json
+2023-08-11,10:14:55 | INFO |   kg_init: random
+2023-08-11,10:14:55 | INFO |   local_loss: False
+2023-08-11,10:14:55 | INFO |   local_rank: 0
+2023-08-11,10:14:55 | INFO |   lock_image: False
+2023-08-11,10:14:55 | INFO |   lock_image_freeze_bn_stats: False
+2023-08-11,10:14:55 | INFO |   lock_image_unlocked_groups: 0
+2023-08-11,10:14:55 | INFO |   log_level: 20
+2023-08-11,10:14:55 | INFO |   log_local: False
+2023-08-11,10:14:55 | INFO |   log_path: ./logs/2023_08_07_instances_TEST-init-random-model-ViT-B-32-ctx-16-front-shot-30-round-1/out.log
+2023-08-11,10:14:55 | INFO |   logs: ./logs/
+2023-08-11,10:14:55 | INFO |   lr: 0.002
+2023-08-11,10:14:55 | INFO |   model: ViT-B-32
+2023-08-11,10:14:55 | INFO |   n_round: 0
+2023-08-11,10:14:55 | INFO |   name: 2023_08_07_instances_TEST-init-random-model-ViT-B-32-ctx-16-front-shot-30-round-1
+2023-08-11,10:14:55 | INFO |   no_set_device_rank: False
+2023-08-11,10:14:55 | INFO |   no_train_backbone: True
+2023-08-11,10:14:55 | INFO |   norm_gradient_clip: None
+2023-08-11,10:14:55 | INFO |   only_last_layers: False
+2023-08-11,10:14:55 | INFO |   pre_fname: 2023_08_07_instances_TEST
+2023-08-11,10:14:55 | INFO |   precision: amp
+2023-08-11,10:14:55 | INFO |   pretrained: openai
+2023-08-11,10:14:55 | INFO |   pretrained_image: False
+2023-08-11,10:14:55 | INFO |   rank: 0
+2023-08-11,10:14:55 | INFO |   report_to: 
+2023-08-11,10:14:55 | INFO |   resume: None
+2023-08-11,10:14:55 | INFO |   resume_gat: 
+2023-08-11,10:14:55 | INFO |   save_frequency: 1
+2023-08-11,10:14:55 | INFO |   save_most_recent: False
+2023-08-11,10:14:55 | INFO |   seed: 0
+2023-08-11,10:14:55 | INFO |   shot: 30
+2023-08-11,10:14:55 | INFO |   skip_scheduler: False
+2023-08-11,10:14:55 | INFO |   tensorboard: False
+2023-08-11,10:14:55 | INFO |   tensorboard_path: 
+2023-08-11,10:14:55 | INFO |   torchscript: False
+2023-08-11,10:14:55 | INFO |   trace: False
+2023-08-11,10:14:55 | INFO |   train_data: /nfs/home/tahmasebzadehg/datasets/instances/train/round1/train_30_shot_round_1.csv
+2023-08-11,10:14:55 | INFO |   train_gat: False
+2023-08-11,10:14:55 | INFO |   train_num_samples: None
+2023-08-11,10:14:55 | INFO |   train_prompts: True
+2023-08-11,10:14:55 | INFO |   use_bn_sync: False
+2023-08-11,10:14:55 | INFO |   val_data: None
+2023-08-11,10:14:55 | INFO |   val_frequency: 1
+2023-08-11,10:14:55 | INFO |   val_num_samples: None
+2023-08-11,10:14:55 | INFO |   wandb: False
+2023-08-11,10:14:55 | INFO |   wandb_notes: 
+2023-08-11,10:14:55 | INFO |   warmup: 10
+2023-08-11,10:14:55 | INFO |   wd: 0.001
+2023-08-11,10:14:55 | INFO |   workers: 8
+2023-08-11,10:14:55 | INFO |   world_size: 1
+2023-08-11,10:14:55 | INFO |   zeroshot_frequency: 1
+/nfs/home/tahmasebzadehg/miniconda3/envs/py310/lib/python3.10/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2023-08-11,10:14:55 | INFO | Start epoch 0
+Traceback (most recent call last):
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py", line 415, in <module>
+    device = main(args, _shot, _round, device)
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py", line 335, in main
+    train_one_epoch(model, data, epoch, optimizer, scaler, scheduler, args, writer)
+  File "/nfs/home/tahmasebzadehg/prompt_learning/src/training/train_coop.py", line 89, in train_one_epoch
+    logit_scale, logits = model(images, wdata, wpedia)
+NameError: name 'wdata' is not defined. Did you mean: 'data'?
+srun: error: devbox2: task 0: Exited with exit code 1
