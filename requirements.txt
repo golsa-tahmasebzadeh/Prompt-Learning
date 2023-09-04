@@ -4,3 +4,12 @@ regex
 ftfy
 tqdm
 huggingface_hub
+pandas
+braceexpand
+webdataset>=0.2.5
+tqdm
+transformers
+timm
+fsspec
+scikit-learn
+tensorboard

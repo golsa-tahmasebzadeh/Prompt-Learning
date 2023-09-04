@@ -41,7 +41,7 @@ class PromptLearner(nn.Module):
                     embedding = clip_model.token_embedding(prompt).type(dtype) # 1,77,512
 
                 ctx_vectors.append( embedding[0, 1 : 1 + n_ctx, :] )  # n_ctx times [17, 512]
-                prompts.append(ctx_init_for_class) # 148
+                prompts.append(ctx_init_for_class) # n_ctx
             
             ctx_vectors = torch.stack(ctx_vectors, dim=0)
         
@@ -60,11 +60,11 @@ class PromptLearner(nn.Module):
             print(f"Number of context words (tokens): {n_ctx}")
             prompts = [prompt_prefix + " " + name + "." for name in classnames]    
 
-        classnames = [name.replace("_", " ") for name in classnames] #148
+        classnames = [name.replace("_", " ") for name in classnames] #n_ctx
         classnames = [name.replace("/", " ") for name in classnames] #148
         name_lens = [len(_tokenizer.encode(name)) for name in classnames] #148 number of tokens(words) per class
 
-        self.ctx = nn.Parameter(ctx_vectors)  # to be optimized: 148, 16, 512
+        self.ctx = nn.Parameter(ctx_vectors)  # to be optimized: n_ctx, ctx-len, 512
 
         tokenized_prompts = torch.cat([tokenize(p) for p in prompts]).to(device=device)
         with torch.no_grad():
@@ -146,7 +146,7 @@ class PromptLearner(nn.Module):
         else:
             raise ValueError
 
-        return prompts  #148, 77, 512
+        return prompts  #n_class, 77, 512
 
 
 class TextEncoder(nn.Module):
@@ -187,9 +187,9 @@ class COOPCLIP(nn.Module):
     def forward(self, image):
         image_features = self.image_encoder(image.type(self.dtype)) # b, 512
 
-        prompts = self.prompt_learner() #148, 77, 512
-        tokenized_prompts = self.tokenized_prompts  # 148, 77
-        text_features = self.text_encoder(prompts, tokenized_prompts)  # 148, 512
+        prompts = self.prompt_learner() #n_class, 77, 512
+        tokenized_prompts = self.tokenized_prompts  # n_class, 77
+        text_features = self.text_encoder(prompts, tokenized_prompts)  # n_class, 512
 
         image_features = image_features / image_features.norm(dim=-1, keepdim=True)  # b , 512
         text_features = text_features / text_features.norm(dim=-1, keepdim=True)   # n_class , 512

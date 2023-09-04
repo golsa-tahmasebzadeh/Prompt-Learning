@@ -13,6 +13,7 @@ def get_default_params(model_name):
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    # important
     parser.add_argument( "--data_set_number", default = '1' )
     parser.add_argument( "--data-dir",  default='/nfs/home/tahmasebzadehg/prompt_learning/data' )
     parser.add_argument( "--CSC",  default='True',  help="True: specific emb per class, False: generic")
@@ -20,21 +21,20 @@ def parse_args():
     parser.add_argument( "--CLASS-TOKEN-POSITION", default= 'front',  help="")
     parser.add_argument( "--N-CTX", default= 16 )
     parser.add_argument( "--ctx-init", default="" , help="This is a photo of a" )
-    parser.add_argument( "--pre-fname", default="2023_06_233_instances" , help="" )
-
-    parser.add_argument( "--only-last-layers", default=False,  help="",    )
-    parser.add_argument( "--no-train-backbone", default=True, help="")
-    parser.add_argument( "--train-prompts", default=True, help="")
-    parser.add_argument( "--shot", default=1 , type=int)    
-    
+    parser.add_argument( "--pre-fname", default="-" , help="" )
 
     ## dataset
     parser.add_argument( "--gt-label-name",  default='gt_label'   )
     parser.add_argument( "--class-names-path", default='class_names.csv', type=str)
     parser.add_argument( "--kg-info-path",  default='kg_info.json' )
-    parser.add_argument( "--dataset-name",  default='test',  help="vise,red,wider,soceid" )
+    parser.add_argument( "--dataset-name",  default='EVENT',  help="" )
     parser.add_argument( "--distribute_device",  default = 'True' )
     
+    
+    parser.add_argument( "--only-last-layers", default=False,  help="",    )
+    parser.add_argument( "--no-train-backbone", default=True, help="")
+    parser.add_argument( "--train-prompts", default=True, help="")
+    parser.add_argument( "--shot", default=1 , type=int) 
 
     parser.add_argument(
         "--train-data",

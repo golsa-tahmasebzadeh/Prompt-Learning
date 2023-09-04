@@ -1,12 +1,12 @@
 #!/bin/bash -x
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
 #SBATCH --wait-all-nodes=1
+#SBATCH -w devbox4
+#SBATCH --job-name=~
 
-
-#eval "$(/nfs/home/tahmasebzadehg/miniconda3/bin/conda shell.bash hook)" # init conda
-#conda activate py312
+#conda activate venv
 export MASTER_PORT=12813
 
 export NCCL_DEBUG=INFO
@@ -16,7 +16,7 @@ master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export MASTER_ADDR=$master_addr
 
 export PYTHONPATH="$PYTHONPATH:$PWD/src"
-srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py \
+srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/prompt_learning/venv/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py \
     --save-frequency 1 \
     --zeroshot-frequency 1 \
     --val-frequency 1 \
@@ -29,12 +29,11 @@ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/miniconda3/envs/py310
     --pretrained openai \
     --lr 2e-03 \
     --wd 0.001 \
-    --dataset-name "test" \
-    --kg-init 'random'\
+    --dataset-name "EVENT" \
+    --kg-init 'wikipedia'\
     --gt-label-name "gt_label"\
     --CLASS-TOKEN-POSITION 'front'\
     --CSC 'True'\
     --model ViT-B-32 \
     --N-CTX 16\
-    --data_set_number '1'\
-    --pre-fname '2023_08_02_TEST'
+    --pre-fname '2023_08_07_EVENT'

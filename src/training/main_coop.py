@@ -54,14 +54,10 @@ def random_seed(seed=42, rank=0):
 
 
 def main(args, n_shot_in, n_round, device):
-# add val dataset for all experiments vise_val_100_shot_round_1.csv
-    if args.dataset_name == 'vise':  t = 'vise_'
-    else: t = ''
+
     args.shot = n_shot_in
-    args.train_data = f'{args.data_dir}/{args.dataset_name}/train/round{n_round}/{t}train_{n_shot_in}_shot_round_{n_round}.csv'
-    args.val_data =  f'{args.data_dir}/{args.dataset_name}/val/round{n_round}/{t}val_{n_shot_in}_shot_round_{n_round}.csv'
-    if args.dataset_name == 'instances':
-        args.val_data = None
+    args.train_data = f'{args.data_dir}/{args.dataset_name}/train/round{n_round}/train_{n_shot_in}_shot_round_{n_round}.csv'
+    args.val_data =  f'{args.data_dir}/{args.dataset_name}/val/round{n_round}/val_{n_shot_in}_shot_round_{n_round}.csv'
 
     args.kg_info_path = f'{args.data_dir}/{args.dataset_name}/kg_info.json'
     args.class_names_path = f'{args.data_dir}/{args.dataset_name}/class_names.csv'
@@ -101,9 +97,9 @@ def main(args, n_shot_in, n_round, device):
         os.makedirs(log_base_path, exist_ok=True)
         log_filename = f'out-{args.rank}' if args.log_local else 'out.log'
         args.log_path = os.path.join(log_base_path, log_filename)
-        # if os.path.exists(args.log_path):
-        #     print( "Error. Experiment already exists. Use --name {} to specify a new experiment."  )
-        #     return -1
+        if os.path.exists(args.log_path):
+            print( "Error. Experiment already exists. Use --name {} to specify a new experiment."  )
+            return -1
 
     # Set logger
     args.log_level = logging.DEBUG if args.debug else logging.INFO
@@ -345,11 +341,11 @@ def main(args, n_shot_in, n_round, device):
 def copy_codebase(args):
     from shutil import copytree, ignore_patterns
     new_code_path = os.path.join(args.logs, args.name, "code")
-    # if os.path.exists(new_code_path):
-    #     print(
-    #         f"Error. Experiment already exists at {new_code_path}. Use --name to specify a new experiment."
-    #     )
-    #     return -1
+    if os.path.exists(new_code_path):
+        print(
+            f"Error. Experiment already exists at {new_code_path}. Use --name to specify a new experiment."
+        )
+        return -1
     print(f"Copying codebase to {new_code_path}")
     current_code_path = os.path.realpath(__file__)
     for _ in range(3):
@@ -366,7 +362,7 @@ if __name__ == "__main__":
     shots = [5] #[ 1,2,3,4,5,10,20,30,50 ]
         
     for _shot in shots:
-            device = main(args, _shot, args.data_set_number, device)
-            args.distribute_device = 'False'
+        device = main(args, _shot, args.data_set_number, device)
+        args.distribute_device = 'False'
 
 

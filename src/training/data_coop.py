@@ -21,7 +21,7 @@ from torch.utils.data.distributed import DistributedSampler
 from webdataset.filters import _shuffle
 from webdataset.tariterators import base_plus_ext, url_opener, tar_file_expander, valid_sample
 
-import h5py
+
 
 try:
     import horovod.torch as hvd
@@ -44,6 +44,8 @@ class CsvDataset(Dataset):
 
         self.images = df[img_key].tolist()
         self.transforms = transforms
+        self.data_dir = args.data_dir
+        self.dataset_name = args.dataset_name
         logging.debug('Done loading data.')
 
 
@@ -51,9 +53,7 @@ class CsvDataset(Dataset):
         return len(self.gt_event_labels)
 
     def __getitem__(self, idx):
-        img_path = str(self.images[idx].strip())
-        if not os.path.exists(img_path):
-            img_path = f'/nfs/home/tahmasebzadehg/datasets/instances/images/{img_path}'
+        img_path = f'{self.data_dir}/{self.dataset_name}/images/{str(self.images[idx].strip())}'
         images = self.transforms(Image.open(img_path))
         event_label = self.gt_event_labels[idx]
 
