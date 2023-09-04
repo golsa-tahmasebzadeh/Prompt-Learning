@@ -1,7 +1,6 @@
 ## Prompt Learning for Image Classification
 ## Installation
 ``` bash
-# clone the repository
 git clone https://github.com/golsa-tahmasebzadeh/prompt_learning.git
 python -m venv venv
 pip install -r requirements.txt
