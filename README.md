@@ -8,7 +8,7 @@ pip install -r requirements.txt
 ```
 
 ## Download Data
-Download the data from [here](https://drive.google.com/file/d/1y4fId3Hnyvyf4Isc0GwMsYMVqYeQEUDS/view?usp=sharing) and put in the root directory.
+Download the data from [here]([https://drive.google.com/file/d/1y4fId3Hnyvyf4Isc0GwMsYMVqYeQEUDS/view?usp=sharing](https://drive.google.com/file/d/1m3RU_epZXiEi2n1ByGMBnlvjI1vT5j8m/view?usp=sharing)) and put in the root directory.
 
 ## Training 
 Change the virtual environment path in the sbatch file.
