@@ -2,8 +2,8 @@
 ## Installation
 ``` bash
 git clone https://github.com/golsa-tahmasebzadeh/prompt_learning.git
-source venv/bin/activate
 python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
