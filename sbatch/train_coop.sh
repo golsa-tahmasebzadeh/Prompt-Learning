@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --wait-all-nodes=1
 #SBATCH -w devbox4
-#SBATCH --job-name=~
+#SBATCH --job-name=PL
 
 #conda activate venv
 export MASTER_PORT=12813
@@ -16,7 +16,7 @@ master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export MASTER_ADDR=$master_addr
 
 export PYTHONPATH="$PYTHONPATH:$PWD/src"
-srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/prompt_learning/venv/bin/python -u /nfs/home/tahmasebzadehg/prompt_learning/src/training/main_coop.py \
+srun --cpu_bind=v --accel-bind=gn ../venv/bin/python -u ../src/training/main_coop.py \
     --save-frequency 1 \
     --zeroshot-frequency 1 \
     --val-frequency 1 \
@@ -25,7 +25,7 @@ srun --cpu_bind=v --accel-bind=gn /nfs/home/tahmasebzadehg/prompt_learning/venv/
     --precision amp \
     --seed 0 \
     --epochs 201 \
-    --data-dir "/nfs/home/tahmasebzadehg/prompt_learning/data"\
+    --data-dir "../data"\
     --pretrained openai \
     --lr 2e-03 \
     --wd 0.001 \
