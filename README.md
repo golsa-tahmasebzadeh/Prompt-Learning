@@ -8,7 +8,7 @@ pip install -r requirements.txt
 ```
 
 ## Download Data
-Download the data from [here](https://drive.google.com/file/d/1y4fId3Hnyvyf4Isc0GwMsYMVqYeQEUDS/view?usp=sharing) and put in the data directory.
+Download the data from [here](https://drive.google.com/file/d/1y4fId3Hnyvyf4Isc0GwMsYMVqYeQEUDS/view?usp=sharing) and put in the root directory.
 
 ## Training 
 ``` bash
