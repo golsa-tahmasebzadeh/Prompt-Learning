@@ -11,7 +11,6 @@ pip install -r requirements.txt
 Download the data from [here](https://drive.google.com/file/d/1m3RU_epZXiEi2n1ByGMBnlvjI1vT5j8m/view?usp=sharing) and put in the root directory.
 
 ## Training 
-Change the virtual environment path in the sbatch file.
 ``` bash
 cd sbatch
 sbatch train_coop.sh
