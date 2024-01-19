@@ -1,4 +1,5 @@
 ## Prompt Learning for Image Classification
+This repository contains scripts for prompt learning based on the Context Optimization (CoOp) technique.
 ## Installation
 ``` bash
 git clone https://github.com/golsa-tahmasebzadeh/prompt_learning.git
